@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api\V1;
 
-use App\Http\Requests\StoreAccountRoleUserRequest;
-use App\Http\Requests\UpdateAccountRoleUserRequest;
-use App\Models\AccountRoleUser;
+use App\Http\Requests\Account\StoreAccountRequest;
+use App\Http\Requests\Account\UpdateAccountRequest;
+use App\Models\Account;
 
-class AccountRoleUserController extends Controller
+class AccountController extends ApiController
 {
     /**
      * Display a listing of the resource.
@@ -27,7 +27,7 @@ class AccountRoleUserController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreAccountRoleUserRequest $request)
+    public function store(StoreAccountRequest $request)
     {
         //
     }
@@ -35,7 +35,7 @@ class AccountRoleUserController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(AccountRoleUser $accountRoleUser)
+    public function show(Account $account)
     {
         //
     }
@@ -43,7 +43,7 @@ class AccountRoleUserController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(AccountRoleUser $accountRoleUser)
+    public function edit(Account $account)
     {
         //
     }
@@ -51,7 +51,7 @@ class AccountRoleUserController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateAccountRoleUserRequest $request, AccountRoleUser $accountRoleUser)
+    public function update(UpdateAccountRequest $request, Account $account)
     {
         //
     }
@@ -59,7 +59,7 @@ class AccountRoleUserController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(AccountRoleUser $accountRoleUser)
+    public function destroy(Account $account)
     {
         //
     }

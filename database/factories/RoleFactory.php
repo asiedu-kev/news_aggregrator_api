@@ -16,8 +16,16 @@ class RoleFactory extends Factory
      */
     public function definition(): array
     {
+        $roles = [
+            'Super Admin',
+            'User'
+        ];
+
+        $key = array_rand($roles, 1);
+
         return [
-            //
+            'name' => $this->faker->unique()->randomElement($roles),
+            'description' => 'A role for '.$roles[$key],
         ];
     }
 }

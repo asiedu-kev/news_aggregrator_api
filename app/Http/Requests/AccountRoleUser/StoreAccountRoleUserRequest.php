@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\AccountRoleUser;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdatePreferenceRequest extends FormRequest
+class StoreAccountRoleUserRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

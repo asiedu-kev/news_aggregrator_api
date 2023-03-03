@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api\V1;
 
-use App\Http\Requests\StorePreferenceRequest;
-use App\Http\Requests\UpdatePreferenceRequest;
+use App\Http\Controllers\Api\Controller;
+use App\Http\Requests\Preference\StorePreferenceRequest;
+use App\Http\Requests\Preference\UpdatePreferenceRequest;
 use App\Models\Preference;
 
 class PreferenceController extends Controller

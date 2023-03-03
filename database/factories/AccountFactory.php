@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -16,8 +17,13 @@ class AccountFactory extends Factory
      */
     public function definition(): array
     {
+        $user = User::all();
         return [
-            //
+            'owner_id' => $user->random()->id,
+            'name' => 'Default Company',
+            'status' => 'active',
+            'timezone' => 'UTC+1',
+            'country' => 'Benin'
         ];
     }
 }

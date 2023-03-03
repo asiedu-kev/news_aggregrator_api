@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name', 255);
             $table->string('timezone', 120)->nullable();
             $table->string('country', 120)->nullable();
-            $table->char('locale', 2)->default('fr');
+            $table->char('locale', 2)->default('en');
             $table->uuid('owner_id');
             $table->uuid('preference_id');
             $table->enum('status', ['active', 'suspended', 'closed'])->default('active');
