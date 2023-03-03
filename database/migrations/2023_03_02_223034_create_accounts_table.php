@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('country', 120)->nullable();
             $table->char('locale', 2)->default('en');
             $table->uuid('owner_id');
-            $table->uuid('preference_id');
+            $table->uuid('preference_id')->nullable();
             $table->enum('status', ['active', 'suspended', 'closed'])->default('active');
             $table->timestamps();
             $table->softDeletes();

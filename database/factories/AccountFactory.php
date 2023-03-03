@@ -26,7 +26,7 @@ class AccountFactory extends Factory
             'status' => 'active',
             'timezone' => 'UTC+1',
             'country' => 'Benin',
-            'preference_id' => $preferences->random()->id
+            'preference_id' => $preferences->random()->id,
         ];
     }
 }
