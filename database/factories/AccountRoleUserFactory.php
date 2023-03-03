@@ -24,7 +24,6 @@ class AccountRoleUserFactory extends Factory
         $roles = Role::all();
         $userId = $users->random()->id;
         $accountId = $accounts->random()->id;
-        User::find($userId)->update(['current_account_id' => $accountId]);
         return [
             'user_id' => $userId,
             'account_id' => $accountId,

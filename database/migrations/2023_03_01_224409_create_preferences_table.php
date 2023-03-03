@@ -12,8 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('preferences', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
+            $table->json('category_ids')->nullable();
+            $table->json('authors')->nullable();
+            $table->json('sources')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -20,7 +20,7 @@ class AccountRoleUser extends Model
      */
     protected $keyType = 'string';
 
-    protected $table = 'account_role_user';
+    protected $table = 'account_role_users';
 
     /**
      * @var array

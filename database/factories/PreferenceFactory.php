@@ -17,7 +17,8 @@ class PreferenceFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'authors' => '["Arron"]',
+            'sources' => '["Source 1"]',
         ];
     }
 }
