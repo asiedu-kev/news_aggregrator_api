@@ -43,32 +43,32 @@ class AuthTest extends TestCase
             ->assertStatus(422);
     }
 
-//    public function test_user_can_not_register_without_invalid_inputs()
-//    {
-//        $user = [
-//            "first_name" => "Kenyatta",
-//            "last_name" => "Lynch",
-//            "password" => "123456789",
-//        ];
-//        $this->postJson('api/auth/register', $user)->assertStatus(422)
-//            ->assertJson(fn(AssertableJson $json) => $json->has('data')
-//                ->has('message')
-//                ->has('data', 2)->where('data.0', 'Le champ email est obligatoire.')
-//                ->etc()
-//            );
-//    }
+    public function test_user_can_not_register_without_invalid_inputs()
+    {
+        $user = [
+            "first_name" => "Kenyatta",
+            "last_name" => "Lynch",
+            "password" => "123456789",
+        ];
+        $this->postJson('api/auth/register', $user)->assertStatus(422)
+            ->assertJson(fn(AssertableJson $json) => $json->has('data')
+                ->has('message')
+                ->has('data', 1)->where('data.0', 'The email field is required.')
+                ->etc()
+            );
+    }
 
-//    public function test_user_can_register()
-//    {
-//        $user = [
-//            "first_name" => "Kenyatta",
-//            "last_name" => "Lynch",
-//            "password" => "123456789",
-//            "email" => "test@ourvoice.com",
-//            "phone" => "22997979979"
-//        ];
-//        $this->postJson('api/auth/register', $user)
-//            ->assertStatus(201);
-//    }
+    public function test_user_can_register()
+    {
+        $user = [
+            "first_name" => "Kenyatta",
+            "last_name" => "Lynch",
+            "password" => "123456789",
+            "email" => "test@ourvoice.com",
+            "phone" => "22997979979"
+        ];
+        $this->postJson('api/auth/register', $user)
+            ->assertStatus(201);
+    }
 
 }

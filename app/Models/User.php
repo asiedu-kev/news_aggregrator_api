@@ -6,6 +6,7 @@ use App\Traits\Uuid;
 
 use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Contracts\Translation\HasLocalePreference;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -14,7 +15,7 @@ use Illuminate\Support\Str;
 use Laravel\Sanctum\HasApiTokens;
 use Laravel\Sanctum\NewAccessToken;
 
-class User extends Authenticatable implements MustVerifyEmail
+class User extends Authenticatable implements MustVerifyEmail, HasLocalePreference
 {
     use HasApiTokens,Uuid, HasFactory, Notifiable, SoftDeletes;
 
@@ -87,5 +88,10 @@ class User extends Authenticatable implements MustVerifyEmail
     public function role()
     {
         return $this->accountRoleUser()->role();
+    }
+
+    public function preferredLocale()
+    {
+        return $this->account()->locale;
     }
 }

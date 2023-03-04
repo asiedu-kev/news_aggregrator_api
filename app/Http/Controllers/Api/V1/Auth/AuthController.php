@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Api\V1\Auth;
 use App\Http\Controllers\Api\V1\ApiController;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\RegisterRequest;
+use App\Models\Account;
+use App\Models\Preference;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Str;
@@ -82,17 +84,28 @@ class AuthController extends ApiController
 
         if (!empty($user)) {
             $user->save();
+            // create the associated account
+            $preference = Preference::create();
+            Account::create([
+                "owner_id" => $user->id,
+                "name" => 'Account_'.$user->email,
+                "timezone" => "",
+                "country" => $request->country,
+                "preference_id" => $preference->id,
+                "locale" => $request->local ?? 'en'
+            ]);
 
+             // TODO Send email verification to the user
             // Return the API Token
             return response()->json([
                 'success' => true,
-                'message' => trans('messages.successfully_operated', [], $user->local),
+                'message' => trans('messages.successfully_operated', [], $user->locale),
                 'data' => [
-                    trans('messages.user_created_successfully', [], $user->local)
+                    trans('messages.user_created_successfully', [], $user->locale)
                 ]
             ], 201);
         }
-        return $this->respondError(trans('messages.user_not_created', [], $request->local), 500);
+        return $this->respondError(trans('messages.user_not_created', [], $request->getLocale()), 500);
     }
 
     /**
