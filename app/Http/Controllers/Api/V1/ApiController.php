@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Api\Controller;
+use App\Http\Resources\Account\AccountResource;
 use Illuminate\Http\JsonResponse;
 
 class ApiController extends Controller
@@ -135,6 +136,7 @@ class ApiController extends Controller
             'access_token' => $tokenResult->plainTextToken,
             'token_type' => 'Bearer',
             'expired_at' => $tokenResult->accessToken->expired_at,
+            'account' => new AccountResource(auth()->user()->account)
         ]);
     }
 }

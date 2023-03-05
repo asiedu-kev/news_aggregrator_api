@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\V1\Auth;
 use App\Http\Controllers\Api\V1\ApiController;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\RegisterRequest;
+use App\Http\Resources\Account\AccountResource;
 use App\Models\Account;
 use App\Models\Preference;
 use App\Models\User;
@@ -86,7 +87,7 @@ class AuthController extends ApiController
             $user->save();
             // create the associated account
             $preference = Preference::create();
-            Account::create([
+            $account = Account::create([
                 "owner_id" => $user->id,
                 "name" => 'Account_'.$user->email,
                 "timezone" => "",
@@ -94,6 +95,7 @@ class AuthController extends ApiController
                 "preference_id" => $preference->id,
                 "locale" => $request->local ?? 'en'
             ]);
+            $tokenResult = $user->createToken(Str::random(15));
 
              // TODO Send email verification to the user
             // Return the API Token
@@ -101,8 +103,9 @@ class AuthController extends ApiController
                 'success' => true,
                 'message' => trans('messages.successfully_operated', [], $user->locale),
                 'data' => [
-                    trans('messages.user_created_successfully', [], $user->locale)
-                ]
+                    "token" => $tokenResult->plainTextToken,
+                    "account" => new AccountResource($account)
+                    ]
             ], 201);
         }
         return $this->respondError(trans('messages.user_not_created', [], $request->getLocale()), 500);
