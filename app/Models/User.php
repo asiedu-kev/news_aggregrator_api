@@ -4,6 +4,8 @@ namespace App\Models;
 use App\Traits\Uuid;
 
 
+use Filament\Models\Contracts\FilamentUser;
+use Filament\Models\Contracts\HasName;
 use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Contracts\Translation\HasLocalePreference;
@@ -15,7 +17,7 @@ use Illuminate\Support\Str;
 use Laravel\Sanctum\HasApiTokens;
 use Laravel\Sanctum\NewAccessToken;
 
-class User extends Authenticatable implements MustVerifyEmail, HasLocalePreference
+class User extends Authenticatable implements MustVerifyEmail, HasLocalePreference, FilamentUser, HasName
 {
     use HasApiTokens,Uuid, HasFactory, Notifiable, SoftDeletes;
 
@@ -59,6 +61,16 @@ class User extends Authenticatable implements MustVerifyEmail, HasLocalePreferen
     public function sendEmailVerificationNotification()
     {
         $this->notify(new VerifyEmail);
+    }
+
+    public function canAccessFilament(): bool
+    {
+        return str_ends_with($this->email, '@news.com') && $this->hasVerifiedEmail();
+    }
+
+    public function getFilamentName(): string
+    {
+        return "{$this->first_name} {$this->last_name}";
     }
 
     public function createToken(string $name, array $abilities = ['*'])

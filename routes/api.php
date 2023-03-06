@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\Api\V1\ArticleController;
 use App\Http\Controllers\Api\V1\Auth\AuthController;
-use Illuminate\Http\Request;
+use App\Http\Controllers\Api\V1\CategoryController;
+use App\Http\Controllers\Api\V1\SourceController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,6 +23,13 @@ Route::middleware('json-response')->prefix('auth')->group(function () {
     // route to log the user if he has already sign up
     Route::post("/login", [AuthController::class, 'login'])->name('api.login');
 });
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::middleware(['auth:sanctum', 'json-response'])->prefix('v1')->group(function () {
+
+    Route::apiResources([
+        'articles' => ArticleController::class,
+        'sources' => SourceController::class,
+        'categories' => CategoryController::class
+    ]);
 });
+
+

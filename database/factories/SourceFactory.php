@@ -2,12 +2,13 @@
 
 namespace Database\Factories;
 
+use App\Models\Source;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Preference>
+ * @extends Factory
  */
-class PreferenceFactory extends Factory
+class SourceFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,7 +18,8 @@ class PreferenceFactory extends Factory
     public function definition(): array
     {
         return [
-            'sources' => '["Source 1"]',
+            'name' => $this->faker->word,
+            'description' => $this->faker->sentence
         ];
     }
 }
