@@ -17,6 +17,8 @@ class DatabaseSeeder extends Seeder
             PreferenceSeeder::class,
             AccountSeeder::class,
             AccountRoleUserSeeder::class,
+            CategorySeeder::class,
+            SourceSeeder::class
         ]);
     }
 }

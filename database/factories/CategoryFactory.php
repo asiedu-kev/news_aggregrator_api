@@ -2,7 +2,6 @@
 
 namespace Database\Factories;
 
-use App\Models\Category;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,8 +16,9 @@ class CategoryFactory extends Factory
      */
     public function definition(): array
     {
+        $categories = ['Business', 'Technology', 'Sports', 'Politics'];
         return [
-            'name' => $this->faker->word,
+            'name' => $this->faker->randomElement($categories),
             'description' => $this->faker->sentence
         ];
     }

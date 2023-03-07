@@ -2,7 +2,6 @@
 
 namespace Database\Factories;
 
-use App\Models\Source;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,8 +16,9 @@ class SourceFactory extends Factory
      */
     public function definition(): array
     {
+        $sources = ['BBC NEWS', 'GUARDIAN_NEWS', 'NEW_YORK_TIMES'];
         return [
-            'name' => $this->faker->word,
+            'name' => $this->faker->randomElement($sources),
             'description' => $this->faker->sentence
         ];
     }
