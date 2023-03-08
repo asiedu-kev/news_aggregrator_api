@@ -17,33 +17,56 @@ articles from various sources and displays them in a clean, easy-to-read format.
 These are guidelines for how to set up the project on local
 
 ## Requirements
+
 - Solid skills in laravel
 - Basics skills about Git, Docker and software development tools
 
 ### Clone the source
 
-> $ git clone https//link-to-the-repo  
-> $ <font color="lightblue">cd</font> project-name
+> $ git clone https://github.com/asiedu-kev/news_aggregrator_api.git
+
+> $ <font color="lightblue">cd</font> news_aggregator_api
 
 ### Create environment files
 
 > cp .env.example .env
+
 > sail build --no-cache
-> 
+>
 
 ### Install dependencies
 
 It will install all the dependencies needed to run the project on your machine
 > sail composer update
 
-
 ### Start your project
+
 > sail up
 
 ### Other commands
+
 To use any php artisan command, from now you should use sail artisan command-name
 To run migrations fro example you should do :
->sail artisan migrate
+> sail artisan migrate
 
+After that you can run unit tests by using :
+> sail artisan test
+
+And now you can seed the database with seed command:
+
+> sail artisan sd:seed
+
+By the way i have add laravel-filament in order to manage admin part. To access it,
+navigate to your browser and tap:
+> localhost:80/admin/login
+
+The default credentials are :
+> Email: admin@news.com  
+> Password : password
+
+![](../../Screenshot 2023-03-08 at 12.14.23.png)
+
+NB: Some keys has been leaved by default in code to avoid all the process of creating account
+on some Third API i have used. Don't mind on that though.
 
 Thanks
