@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Api\Controller;
-use App\Http\Requests\Preference\StorePreferenceRequest;
-use App\Http\Requests\Preference\UpdatePreferenceRequest;
+use App\Http\Resources\Article\ArticleCollection;
+use App\Models\Article;
 use App\Models\Preference;
 
 class PreferenceController extends Controller
@@ -14,54 +14,21 @@ class PreferenceController extends Controller
      */
     public function index()
     {
-        //
-    }
+        $account = auth()->user()->account;
+        $preference = Preference::where(['account_id' => $account->id])->first();
+        if ($preference) {
+            $article_ids = json_decode($preference->article_ids);
+            $articles = [];
+            foreach ($article_ids as $id) {
+                $article = Article::find($id);
+                if ($article) {
+                    $articles[] = $article;
+                }
+            }
+            return new ArticleCollection($articles);
+        } else {
+            return new ArticleCollection([]);
+        }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StorePreferenceRequest $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Preference $preference)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Preference $preference)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdatePreferenceRequest $request, Preference $preference)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Preference $preference)
-    {
-        //
     }
 }

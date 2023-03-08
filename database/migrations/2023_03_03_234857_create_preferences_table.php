@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -13,11 +12,15 @@ return new class extends Migration
     {
         Schema::create('preferences', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->json('category_ids')->nullable();
+            $table->uuid('account_id');
             $table->json('article_ids')->nullable();
-            $table->json('sources')->nullable();
             $table->timestamps();
             $table->softDeletes();
+
+            $table->foreign('account_id')
+                ->references('id')
+                ->on('accounts')
+                ->onDelete('cascade');
         });
     }
 

@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers\Api\V1;
 
+use App\Http\Requests\Article\StoreArticleRequest;
 use App\Http\Resources\Article\ArticleCollection;
+use App\Http\Resources\Article\ArticleResource;
+use App\Models\Article;
+use App\Models\Preference;
 use Exception;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\Request;
@@ -105,5 +109,24 @@ class ArticleController extends ApiController
                 'data' => $e->getMessage()
             ], 504));
         }
+    }
+
+    public function store(StoreArticleRequest $request)
+    {
+        $article = Article::create($request->all());
+        $account = auth()->user()->account;
+        $preference = Preference::where(['account_id' => $account->id])->first();
+        if (!$preference) {
+            $preference = Preference::create([
+                'account_id' => $account->id,
+                'article_ids' => json_encode([$article->id])
+            ]);
+            $account->update(['preference_id' => $preference->id]);
+        } else {
+            $article_ids = json_decode($preference->article_ids);
+            $article_ids[] = $article->id;
+            $preference->update(['article_ids' => json_encode($article_ids)]);
+        }
+        return new ArticleResource($article);
     }
 }

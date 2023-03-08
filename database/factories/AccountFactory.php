@@ -2,12 +2,12 @@
 
 namespace Database\Factories;
 
-use App\Models\Preference;
+use App\Models\Account;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Account>
+ * @extends Factory
  */
 class AccountFactory extends Factory
 {
@@ -19,14 +19,12 @@ class AccountFactory extends Factory
     public function definition(): array
     {
         $user = User::all();
-        $preferences = Preference::all();
         return [
             'owner_id' => $user->random()->id,
             'name' => 'Default Company',
             'status' => 'active',
             'timezone' => 'UTC+1',
             'country' => 'Benin',
-            'preference_id' => $preferences->random()->id,
         ];
     }
 }

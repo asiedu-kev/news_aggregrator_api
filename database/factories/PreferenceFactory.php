@@ -2,10 +2,12 @@
 
 namespace Database\Factories;
 
+use App\Models\Account;
+use App\Models\Preference;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Preference>
+ * @extends Factory
  */
 class PreferenceFactory extends Factory
 {
@@ -16,8 +18,9 @@ class PreferenceFactory extends Factory
      */
     public function definition(): array
     {
+        $accounts = Account::all();
         return [
-            'sources' => '["Source 1"]',
+            'account_id' => $accounts->random()->id,
         ];
     }
 }

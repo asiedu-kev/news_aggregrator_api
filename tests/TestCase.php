@@ -4,7 +4,6 @@ namespace Tests;
 
 use App\Models\Account;
 use App\Models\AccountRoleUser;
-use App\Models\Preference;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -43,11 +42,9 @@ abstract class TestCase extends BaseTestCase
             'name' => 'Super Admin',
             'description' => 'Admin of the account'
         ]);
-        $preference = Preference::factory()->create();
         $account = Account::factory()->create([
             'owner_id' => $user->id,
-            'name' => 'Account '.$user->email,
-            'preference_id' => $preference->id
+            'name' => 'Account ' . $user->email,
         ]);
         AccountRoleUser::factory()->create([
             'role_id' => $role->id,

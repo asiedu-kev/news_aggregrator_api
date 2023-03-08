@@ -13,7 +13,7 @@ class AccountPolicy
      */
     public function viewAny(User $user): bool
     {
-        //
+        return true;
     }
 
     /**
@@ -21,7 +21,7 @@ class AccountPolicy
      */
     public function view(User $user, Account $account): bool
     {
-        //
+        return true;
     }
 
     /**
@@ -29,15 +29,17 @@ class AccountPolicy
      */
     public function create(User $user): bool
     {
-        //
+        return true;
     }
 
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, Account $account): bool
+    public function update(User $user, Account $account): Response
     {
-        //
+        return $user->id === $account->owner_id || $user->email === 'admin@news.com' ? Response::allow() :
+            Response::deny('You are not authorized to perform this action.');
+
     }
 
     /**
@@ -45,7 +47,7 @@ class AccountPolicy
      */
     public function delete(User $user, Account $account): bool
     {
-        //
+        return true;
     }
 
     /**
@@ -53,7 +55,7 @@ class AccountPolicy
      */
     public function restore(User $user, Account $account): bool
     {
-        //
+        return true;
     }
 
     /**
@@ -61,6 +63,6 @@ class AccountPolicy
      */
     public function forceDelete(User $user, Account $account): bool
     {
-        //
+        return true;
     }
 }

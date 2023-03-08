@@ -6,7 +6,6 @@ use App\Traits\Uuid;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Notifications\Notifiable;
 
 class Preference extends Model
 {
@@ -21,6 +20,6 @@ class Preference extends Model
     /**
      * @var array
      */
-    protected $fillable = ['category_ids', 'authors', 'sources', 'description'];
+    protected $fillable = ['account_id', 'article_ids'];
 
 }

@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\Api\V1\AccountController;
 use App\Http\Controllers\Api\V1\ArticleController;
 use App\Http\Controllers\Api\V1\Auth\AuthController;
 use App\Http\Controllers\Api\V1\CategoryController;
+use App\Http\Controllers\Api\V1\PreferenceController;
 use App\Http\Controllers\Api\V1\SourceController;
 use Illuminate\Support\Facades\Route;
 
@@ -28,8 +30,14 @@ Route::middleware(['auth:sanctum', 'json-response'])->prefix('v1')->group(functi
     Route::apiResources([
         'articles' => ArticleController::class,
         'sources' => SourceController::class,
-        'categories' => CategoryController::class
+        'categories' => CategoryController::class,
+        'accounts' => AccountController::class,
+        'preferences' => PreferenceController::class
     ]);
+});
+
+Route::fallback(function () {
+    return response()->json(['message' => 'Route Not Found!'], 404);
 });
 
 
