@@ -7,7 +7,6 @@ use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\RegisterRequest;
 use App\Http\Resources\Account\AccountResource;
 use App\Models\Account;
-use App\Models\Preference;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Str;
@@ -86,18 +85,16 @@ class AuthController extends ApiController
         if (!empty($user)) {
             $user->save();
             // create the associated account
-            $preference = Preference::create();
             $account = Account::create([
                 "owner_id" => $user->id,
-                "name" => 'Account_'.$user->email,
+                "name" => 'Account_' . $user->email,
                 "timezone" => "",
                 "country" => $request->country,
-                "preference_id" => $preference->id,
                 "locale" => $request->local ?? 'en'
             ]);
             $tokenResult = $user->createToken(Str::random(15));
 
-             // TODO Send email verification to the user
+            // TODO Send email verification to the user
             // Return the API Token
             return response()->json([
                 'success' => true,
@@ -105,7 +102,7 @@ class AuthController extends ApiController
                 'data' => [
                     "token" => $tokenResult->plainTextToken,
                     "account" => new AccountResource($account)
-                    ]
+                ]
             ], 201);
         }
         return $this->respondError(trans('messages.user_not_created', [], $request->getLocale()), 500);
